@@ -40,6 +40,15 @@ int main() {
     }
     printf("\t--SESION INICIADA CON EL SERVIDOR--\n");
 
+	char nivel[2];
+
+	printf("\t     SELECCIONE DIFICULTAD: \n");
+	printf("\t     1- FACIL (ANIMALES) \n");
+	printf("\t     2- MEDIA (VEHICULOS) \n");
+	printf("\t     3- DIFICIL (PLATILLOS) \n");
+	scanf("%c", &nivel[0]);
+	send(socket_cliente, nivel, 1024, 0);
+
 	while(strcmp(cadenaCliente, "BREAK") != 0) {
 
         recv(socket_cliente, cadenaServidor, 1024, 0);

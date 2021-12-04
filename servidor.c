@@ -12,17 +12,17 @@
 
 #define CHANCE 6
 #define MAX 0x100
-#define CANTIDAD(x) (sizeof((x))/sizeof(char*)-1)
 
-const char *palabra[]={"ABEJA","AGUILA","BALLENA","BESUGO","BUHO","BUITRE","BURRO"
-	"CABALLO","CAMALEON","CAMELLO","CANGURO","CANARIO","CANGREJO","CARACOL",
-	"CASTOR","CEBRA","CERDO","CHACAL","CHIMPANCE","CHINCHILLA","CIEMPIES",
-	"CIERVO","CISNE","COBAYA","COCODRILO","COLIBRI","CHANGO","COMADREJA","CONEJO",
-	"CORMORAN","CONDOR","COTORRA","COYOTE","DELFIN","DRAGON","ESCORPION",
-	"FLAMENCO","FOCA","GALLINA","GANSO","GATO","GAVILAN","HALCON","HAMSTER",
-	"HIENA","HIPOPOTAMO","HORMIGA","HURON","IGUANA","IMPALA","JABALI","JIRAFA",
-	"JAGUAR","KIWI","KOALA","LAGARTO","LANGOSTA","LECHUZA","LEMUR","LEON",
-	"LEOPARDO","LIBELULA","LIEBRE","LINCE","OSOPARDO"};
+const char *animales[]={"ABEJA", "BALLENA", "CABALLO", "COCODRILO", 
+"DELFIN", "ESCORPION", "FLAMENCO", "HAMSTER", "IGUANA", "LEON"};
+
+
+const char *vehiculos[]={"TAXI", "AUTOBUS", "CARRO", "BICICLETA", 
+"VELERO", "HELICOPTERO", "MOTOCICLETA", "AVION", "METRO", "TELEFERICO"};
+
+
+const char *platillos[]={"PAELLA", "CROISSANT", "SOUFFLE", "TAMALES", 
+"ENCHILADAS", "RAMEN", "SUSHI", "SASHIMI", "WASABI", "BURRITOS"};
 
 char inttochar(int x) {
 	return x+'0';
@@ -77,12 +77,31 @@ int main() {
 		}
 		printf("\t-- CLIENTE CONECTADO --\n");
 
+		char nivel[2];
+		recv(socket_cliente, nivel, 1024, 0);
+
+
 		const char *elegida;
 		srand(time(NULL));
 		int aleatoria;
-		aleatoria = rand()%CANTIDAD(palabra);
+		aleatoria = rand()%15;
+		int opcion = (int)nivel[0];
 
-		elegida = palabra[aleatoria];
+		switch (opcion)
+		{
+		case 1:
+			elegida = animales[aleatoria];
+			break;
+		case 2:
+			elegida = vehiculos[aleatoria];
+			break;
+		case 3:
+			elegida = platillos[aleatoria];
+			break;
+		default:
+			break;
+		}
+		
 		printf("%s | %ld\n", elegida, strlen(elegida));
 		int x = strlen(elegida);
 
